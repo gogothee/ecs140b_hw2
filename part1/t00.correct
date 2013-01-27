@@ -1,0 +1,28 @@
+++++ running WU
+ORIGINAL: ``this is a test''
+STRIPPED: ``thisisatest''
+
+ORIGINAL: ``th is i s a t es t''
+STRIPPED: ``thisisatest''
+
+ORIGINAL: ``a test this is''
+STRIPPED: ``atestthisis''
+
+character counts
+  13
+a 3
+e 3
+h 3
+i 6
+s 9
+t 9
+line counts
+a test this is 1
+th is i s a t es t 1
+this is a test 1
+stripped line counts
+atestthisis 1
+thisisatest 2
+compressed line counts
+aehist 3
+++++ done running WU

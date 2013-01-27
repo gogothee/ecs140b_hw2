@@ -1,0 +1,69 @@
+++++ running SP
+ORIGINAL: ``a(s)''
+STRIPPED: ``a(s)''
+
+ORIGINAL: ``b(c,d)''
+STRIPPED: ``b(c,d)''
+
+ORIGINAL: ``?a(s)''
+STRIPPED: ``?a(s)''
+QueryList=[
+  [a,[s]]
+]
+
+ORIGINAL: ``?a(e)''
+STRIPPED: ``?a(e)''
+QueryList=[
+  [a,[e]]
+]
+
+ORIGINAL: ``?a(d)''
+STRIPPED: ``?a(d)''
+QueryList=[
+  [a,[d]]
+]
+
+ORIGINAL: ``?a(s),b(c,d)''
+STRIPPED: ``?a(s),b(c,d)''
+QueryList=[
+  [a,[s]]
+  [b,[c,d]]
+]
+
+ORIGINAL: ``?a(X)''
+STRIPPED: ``?a(X)''
+QueryList=[
+  [a,[:X]]
+]
+
+ORIGINAL: ``?a(X),b(X,d)''
+STRIPPED: ``?a(X),b(X,d)''
+QueryList=[
+  [a,[:X]]
+  [b,[=X,d]]
+]
+
+ORIGINAL: ``b(s,d)''
+STRIPPED: ``b(s,d)''
+
+ORIGINAL: ``?a(X),b(X,d)''
+STRIPPED: ``?a(X),b(X,d)''
+QueryList=[
+  [a,[:X]]
+  [b,[=X,d]]
+]
+
+ORIGINAL: ``b(s,e)''
+STRIPPED: ``b(s,e)''
+
+ORIGINAL: ``a(c)''
+STRIPPED: ``a(c)''
+
+ORIGINAL: ``?a(X),b(X,d)''
+STRIPPED: ``?a(X),b(X,d)''
+QueryList=[
+  [a,[:X]]
+  [b,[=X,d]]
+]
+
+++++ done running SP

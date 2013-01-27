@@ -1,0 +1,8 @@
+#!/bin/csh -f
+# a simple way to test everything
+
+foreach i ( t*.sp )
+	set b = `basename $i .sp`
+	echo ==== $b ====
+	./run1 $b
+end

@@ -1,0 +1,121 @@
+++++ running SP
+ORIGINAL: ``# similar to t00 but includes queries''
+
+ORIGINAL: ``book(horowitz)''
+STRIPPED: ``book(horowitz)''
+
+ORIGINAL: ``book(king)''
+STRIPPED: ``book(king)''
+
+ORIGINAL: ``text(kernighan,ritchie)''
+STRIPPED: ``text(kernighan,ritchie)''
+
+ORIGINAL: ``text( griswold ,  griswold )''
+STRIPPED: ``text(griswold,griswold)''
+
+ORIGINAL: ``book( wilensky )    ''
+STRIPPED: ``book(wilensky)''
+
+ORIGINAL: ``!''
+STRIPPED: ``!''
+showing all relationships
+book(horowitz)
+book(king)
+book(wilensky)
+text(kernighan,ritchie)
+text(griswold,griswold)
+
+ORIGINAL: ``! text''
+STRIPPED: ``!text''
+text(kernighan,ritchie)
+text(griswold,griswold)
+
+ORIGINAL: ``! money''
+STRIPPED: ``!money''
+bad relationship to show
+
+ORIGINAL: ``?book(wirth)''
+STRIPPED: ``?book(wirth)''
+QueryList=[
+  [book,[wirth]]
+]
+
+ORIGINAL: ``?book(king)''
+STRIPPED: ``?book(king)''
+QueryList=[
+  [book,[king]]
+]
+
+ORIGINAL: ``?book(wirth),book(king)''
+STRIPPED: ``?book(wirth),book(king)''
+QueryList=[
+  [book,[wirth]]
+  [book,[king]]
+]
+
+ORIGINAL: ``?book(wilensky),book(king)''
+STRIPPED: ``?book(wilensky),book(king)''
+QueryList=[
+  [book,[wilensky]]
+  [book,[king]]
+]
+
+ORIGINAL: ``''
+
+ORIGINAL: ``?book(X)''
+STRIPPED: ``?book(X)''
+QueryList=[
+  [book,[:X]]
+]
+
+ORIGINAL: ``?text(X,ritchie)''
+STRIPPED: ``?text(X,ritchie)''
+QueryList=[
+  [text,[:X,ritchie]]
+]
+
+ORIGINAL: ``?text(ritchie,X)''
+STRIPPED: ``?text(ritchie,X)''
+QueryList=[
+  [text,[ritchie,:X]]
+]
+
+ORIGINAL: ``?text(X,Y)''
+STRIPPED: ``?text(X,Y)''
+QueryList=[
+  [text,[:X,:Y]]
+]
+
+ORIGINAL: ``?text(X,X)''
+STRIPPED: ``?text(X,X)''
+QueryList=[
+  [text,[:X,=X]]
+]
+
+ORIGINAL: ``?text(X,X),book(Y)''
+STRIPPED: ``?text(X,X),book(Y)''
+QueryList=[
+  [text,[:X,=X]]
+  [book,[:Y]]
+]
+
+ORIGINAL: ``?text(X,X),book(X)''
+STRIPPED: ``?text(X,X),book(X)''
+QueryList=[
+  [text,[:X,=X]]
+  [book,[=X]]
+]
+
+ORIGINAL: ``''
+
+ORIGINAL: ``book(griswold)''
+STRIPPED: ``book(griswold)''
+
+ORIGINAL: ``?text(X,X),book(X)''
+STRIPPED: ``?text(X,X),book(X)''
+QueryList=[
+  [text,[:X,=X]]
+  [book,[=X]]
+]
+
+++++ done running SP

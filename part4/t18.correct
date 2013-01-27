@@ -1,0 +1,99 @@
+++++ running SP
+ORIGINAL: ``animal(pet)''
+STRIPPED: ``animal(pet)''
+
+ORIGINAL: ``animal(wild)''
+STRIPPED: ``animal(wild)''
+
+ORIGINAL: ``     animal(tame)''
+STRIPPED: ``animal(tame)''
+
+ORIGINAL: ``pet(dog)''
+STRIPPED: ``pet(dog)''
+
+ORIGINAL: ``pet(cat)''
+STRIPPED: ``pet(cat)''
+
+ORIGINAL: ``pet(rabbit)''
+STRIPPED: ``pet(rabbit)''
+
+ORIGINAL: ``pet(monkey)''
+STRIPPED: ``pet(monkey)''
+
+ORIGINAL: ``!''
+STRIPPED: ``!''
+showing all relationships
+animal(pet)
+animal(wild)
+animal(tame)
+pet(dog)
+pet(cat)
+pet(rabbit)
+pet(monkey)
+
+ORIGINAL: ``others(pet,monkey)''
+STRIPPED: ``others(pet,monkey)''
+
+ORIGINAL: ``others(wild,monkey)''
+STRIPPED: ``others(wild,monkey)''
+
+ORIGINAL: ``others(tame,panther)''
+STRIPPED: ``others(tame,panther)''
+
+ORIGINAL: ``others(tame,cat)''
+STRIPPED: ``others(tame,cat)''
+
+ORIGINAL: ``name(pet,monkey,curiousgeorge)''
+STRIPPED: ``name(pet,monkey,curiousgeorge)''
+
+ORIGINAL: ``name(tame,cat,bagheera)''
+STRIPPED: ``name(tame,cat,bagheera)''
+
+ORIGINAL: ``?animal(X),others(X,Y)''
+STRIPPED: ``?animal(X),others(X,Y)''
+QueryList=[
+  [animal,[:X]]
+  [others,[=X,:Y]]
+]
+X = pet Y = monkey 
+X = wild Y = monkey 
+X = tame Y = panther 
+X = tame Y = cat 
+no
+
+ORIGINAL: ``?others(X,Y),pet(Y)''
+STRIPPED: ``?others(X,Y),pet(Y)''
+QueryList=[
+  [others,[:X,:Y]]
+  [pet,[=Y]]
+]
+X = pet Y = monkey 
+X = wild Y = monkey 
+X = tame Y = cat 
+no
+
+ORIGINAL: ``?others(X,Y),pet(Y),animal(X)''
+STRIPPED: ``?others(X,Y),pet(Y),animal(X)''
+QueryList=[
+  [others,[:X,:Y]]
+  [pet,[=Y]]
+  [animal,[=X]]
+]
+X = pet Y = monkey 
+X = wild Y = monkey 
+X = tame Y = cat 
+no
+
+ORIGINAL: ``?others(X,Y),pet(Y),animal(X),name(X,Y,Z)''
+STRIPPED: ``?others(X,Y),pet(Y),animal(X),name(X,Y,Z)''
+QueryList=[
+  [others,[:X,:Y]]
+  [pet,[=Y]]
+  [animal,[=X]]
+  [name,[=X,=Y,:Z]]
+]
+X = pet Y = monkey Z = curiousgeorge 
+X = tame Y = cat Z = bagheera 
+no
+
+++++ done running SP

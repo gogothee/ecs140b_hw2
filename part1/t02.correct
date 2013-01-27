@@ -1,0 +1,70 @@
+++++ running WU
+ORIGINAL: ``Another test for stripping blanks and tabs''
+STRIPPED: ``Anothertestforstrippingblanksandtabs''
+
+ORIGINAL: ``A n o t h e r  t e s t  f o r   s t r    i p  ing''
+STRIPPED: ``Anothertestforstriping''
+
+ORIGINAL: ``	Another test for       testing if   ''
+STRIPPED: ``Anothertestfortestingif''
+
+ORIGINAL: ``all      the 		blanks  		''
+STRIPPED: ``alltheblanks''
+
+ORIGINAL: ``	and tabs have been      removed from    ''
+STRIPPED: ``andtabshavebeenremovedfrom''
+
+ORIGINAL: ``these lines    ''
+STRIPPED: ``theselines''
+
+ORIGINAL: ``these lines.       ''
+STRIPPED: ``theselines.''
+
+character counts
+	 6
+  82
+. 1
+A 3
+a 8
+b 5
+d 3
+e 19
+f 5
+g 3
+h 7
+i 8
+k 2
+l 6
+m 2
+n 13
+o 8
+p 3
+r 10
+s 14
+t 18
+v 2
+line counts
+	Another test for       testing if    1
+	and tabs have been      removed from     1
+A n o t h e r  t e s t  f o r   s t r    i p  ing 1
+Another test for stripping blanks and tabs 1
+all      the 		blanks  		 1
+these lines     1
+these lines.        1
+stripped line counts
+Anothertestforstriping 1
+Anothertestforstrippingblanksandtabs 1
+Anothertestfortestingif 1
+alltheblanks 1
+andtabshavebeenremovedfrom 1
+theselines 1
+theselines. 1
+compressed line counts
+.ehilnst 1
+Aabdefghiklnoprst 1
+Aefghinoprst 1
+Aefghinorst 1
+abdefhmnorstv 1
+abehklnst 1
+ehilnst 1
+++++ done running WU

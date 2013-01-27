@@ -1,0 +1,14 @@
+#!/bin/csh -f
+# a simple way to run the warmup tests
+# usage: ``run X''
+#        where X is prefix of file containing warmup data
+# e.g.,  ``run t5'' will run on t5.wu
+
+if( $#argv != 1 ) then
+	echo usage: $0 prefix
+	exit(1)
+endif
+
+echo ++++ running WU
+./wu < $1.wu
+echo ++++ done running WU

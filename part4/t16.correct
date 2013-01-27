@@ -1,0 +1,144 @@
+++++ running SP
+ORIGINAL: ``# similar to t00 but includes queries''
+
+ORIGINAL: ``book(horowitz)''
+STRIPPED: ``book(horowitz)''
+
+ORIGINAL: ``book(king)''
+STRIPPED: ``book(king)''
+
+ORIGINAL: ``text(kernighan,ritchie)''
+STRIPPED: ``text(kernighan,ritchie)''
+
+ORIGINAL: ``text( griswold ,  griswold )''
+STRIPPED: ``text(griswold,griswold)''
+
+ORIGINAL: ``book( wilensky )    ''
+STRIPPED: ``book(wilensky)''
+
+ORIGINAL: ``!''
+STRIPPED: ``!''
+showing all relationships
+book(horowitz)
+book(king)
+book(wilensky)
+text(kernighan,ritchie)
+text(griswold,griswold)
+
+ORIGINAL: ``! text''
+STRIPPED: ``!text''
+text(kernighan,ritchie)
+text(griswold,griswold)
+
+ORIGINAL: ``! money''
+STRIPPED: ``!money''
+bad relationship to show
+
+ORIGINAL: ``?book(wirth)''
+STRIPPED: ``?book(wirth)''
+QueryList=[
+  [book,[wirth]]
+]
+no
+
+ORIGINAL: ``?book(king)''
+STRIPPED: ``?book(king)''
+QueryList=[
+  [book,[king]]
+]
+yes
+
+ORIGINAL: ``?book(wirth),book(king)''
+STRIPPED: ``?book(wirth),book(king)''
+QueryList=[
+  [book,[wirth]]
+  [book,[king]]
+]
+no
+
+ORIGINAL: ``?book(wilensky),book(king)''
+STRIPPED: ``?book(wilensky),book(king)''
+QueryList=[
+  [book,[wilensky]]
+  [book,[king]]
+]
+yes
+
+ORIGINAL: ``''
+
+ORIGINAL: ``?book(X)''
+STRIPPED: ``?book(X)''
+QueryList=[
+  [book,[:X]]
+]
+X = horowitz 
+X = king 
+X = wilensky 
+no
+
+ORIGINAL: ``?text(X,ritchie)''
+STRIPPED: ``?text(X,ritchie)''
+QueryList=[
+  [text,[:X,ritchie]]
+]
+X = kernighan 
+no
+
+ORIGINAL: ``?text(ritchie,X)''
+STRIPPED: ``?text(ritchie,X)''
+QueryList=[
+  [text,[ritchie,:X]]
+]
+no
+
+ORIGINAL: ``?text(X,Y)''
+STRIPPED: ``?text(X,Y)''
+QueryList=[
+  [text,[:X,:Y]]
+]
+X = kernighan Y = ritchie 
+X = griswold Y = griswold 
+no
+
+ORIGINAL: ``?text(X,X)''
+STRIPPED: ``?text(X,X)''
+QueryList=[
+  [text,[:X,=X]]
+]
+X = griswold 
+no
+
+ORIGINAL: ``?text(X,X),book(Y)''
+STRIPPED: ``?text(X,X),book(Y)''
+QueryList=[
+  [text,[:X,=X]]
+  [book,[:Y]]
+]
+X = griswold Y = horowitz 
+X = griswold Y = king 
+X = griswold Y = wilensky 
+no
+
+ORIGINAL: ``?text(X,X),book(X)''
+STRIPPED: ``?text(X,X),book(X)''
+QueryList=[
+  [text,[:X,=X]]
+  [book,[=X]]
+]
+no
+
+ORIGINAL: ``''
+
+ORIGINAL: ``book(griswold)''
+STRIPPED: ``book(griswold)''
+
+ORIGINAL: ``?text(X,X),book(X)''
+STRIPPED: ``?text(X,X),book(X)''
+QueryList=[
+  [text,[:X,=X]]
+  [book,[=X]]
+]
+X = griswold 
+no
+
+++++ done running SP

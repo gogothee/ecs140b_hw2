@@ -1,0 +1,111 @@
+++++ running SP
+ORIGINAL: ``likes(joe,fish)''
+STRIPPED: ``likes(joe,fish)''
+
+ORIGINAL: ``likes(joe,mary)''
+STRIPPED: ``likes(joe,mary)''
+
+ORIGINAL: ``likes(mary,book)''
+STRIPPED: ``likes(mary,book)''
+
+ORIGINAL: ``likes(john,book)''
+STRIPPED: ``likes(john,book)''
+
+ORIGINAL: ``# should be no''
+
+ORIGINAL: ``?likes(joe,money)''
+STRIPPED: ``?likes(joe,money)''
+QueryList=[
+  [likes,[joe,money]]
+]
+
+ORIGINAL: ``# should be no''
+
+ORIGINAL: ``?likes(mary,joe)''
+STRIPPED: ``?likes(mary,joe)''
+QueryList=[
+  [likes,[mary,joe]]
+]
+
+ORIGINAL: ``# should be yes''
+
+ORIGINAL: ``?likes(mary,book)''
+STRIPPED: ``?likes(mary,book)''
+QueryList=[
+  [likes,[mary,book]]
+]
+
+ORIGINAL: ``#''
+
+ORIGINAL: ``?likes(john,X)''
+STRIPPED: ``?likes(john,X)''
+QueryList=[
+  [likes,[john,:X]]
+]
+
+ORIGINAL: ``#''
+
+ORIGINAL: ``?likes(X,mary)''
+STRIPPED: ``?likes(X,mary)''
+QueryList=[
+  [likes,[:X,mary]]
+]
+
+ORIGINAL: ``#''
+
+ORIGINAL: ``?likes(X,Y)''
+STRIPPED: ``?likes(X,Y)''
+QueryList=[
+  [likes,[:X,:Y]]
+]
+
+ORIGINAL: ``# should be no''
+
+ORIGINAL: ``?likes(john,mary),likes(mary,john)''
+STRIPPED: ``?likes(john,mary),likes(mary,john)''
+QueryList=[
+  [likes,[john,mary]]
+  [likes,[mary,john]]
+]
+
+ORIGINAL: ``# what things do both mary and john like''
+
+ORIGINAL: ``?likes(mary,X),likes(john,X)''
+STRIPPED: ``?likes(mary,X),likes(john,X)''
+QueryList=[
+  [likes,[mary,:X]]
+  [likes,[john,=X]]
+]
+
+ORIGINAL: ``# does joe like anything that likes a book?''
+
+ORIGINAL: ``?likes(joe,X),likes(X,book)''
+STRIPPED: ``?likes(joe,X),likes(X,book)''
+QueryList=[
+  [likes,[joe,:X]]
+  [likes,[=X,book]]
+]
+
+ORIGINAL: ``# does anything like itself?''
+
+ORIGINAL: ``?likes(X,X)''
+STRIPPED: ``?likes(X,X)''
+QueryList=[
+  [likes,[:X,=X]]
+]
+
+ORIGINAL: ``likes(joe,joe)''
+STRIPPED: ``likes(joe,joe)''
+
+ORIGINAL: ``likes(mimi,mimi)''
+STRIPPED: ``likes(mimi,mimi)''
+
+ORIGINAL: ``# does anything like itself?''
+
+ORIGINAL: ``?likes(X,X)''
+STRIPPED: ``?likes(X,X)''
+QueryList=[
+  [likes,[:X,=X]]
+]
+
+++++ done running SP

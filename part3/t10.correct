@@ -1,0 +1,107 @@
+++++ running SP
+ORIGINAL: ``# simple test of defining and displaying facts''
+
+ORIGINAL: ``book(horowitz)''
+STRIPPED: ``book(horowitz)''
+
+ORIGINAL: ``book(king)''
+STRIPPED: ``book(king)''
+
+ORIGINAL: ``# should give error''
+
+ORIGINAL: ``book(kernighan,ritchie)''
+STRIPPED: ``book(kernighan,ritchie)''
+relationship book needs arity 1 not 2
+HUH? 
+
+ORIGINAL: ``!''
+STRIPPED: ``!''
+showing all relationships
+book(horowitz)
+book(king)
+
+ORIGINAL: ``text(kernighan,ritchie)''
+STRIPPED: ``text(kernighan,ritchie)''
+
+ORIGINAL: ``# test whitespace; 2nd one has blanks on end''
+
+ORIGINAL: ``  tex t( griswold  ,  griswold )''
+STRIPPED: ``text(griswold,griswold)''
+
+ORIGINAL: `` boo k   ( wile ns  ky )    ''
+STRIPPED: ``book(wilensky)''
+
+ORIGINAL: ``money()''
+STRIPPED: ``money()''
+
+ORIGINAL: ``!''
+STRIPPED: ``!''
+showing all relationships
+book(horowitz)
+book(king)
+book(wilensky)
+money()
+text(kernighan,ritchie)
+text(griswold,griswold)
+
+ORIGINAL: ``! text''
+STRIPPED: ``!text''
+text(kernighan,ritchie)
+text(griswold,griswold)
+
+ORIGINAL: ``! money''
+STRIPPED: ``!money''
+money()
+
+ORIGINAL: ``# next 6 should give errors''
+
+ORIGINAL: ``! foo''
+STRIPPED: ``!foo''
+bad relationship to show
+
+ORIGINAL: ``book''
+STRIPPED: ``book''
+HUH? 
+
+ORIGINAL: ``book(''
+STRIPPED: ``book(''
+HUH? 
+
+ORIGINAL: ``book( gooo''
+STRIPPED: ``book(gooo''
+HUH? 
+
+ORIGINAL: ``book )''
+STRIPPED: ``book)''
+HUH? 
+
+ORIGINAL: ``goooo ( foo (hoo))''
+STRIPPED: ``goooo(foo(hoo))''
+HUH? 
+
+ORIGINAL: ``book(wilensky)''
+STRIPPED: ``book(wilensky)''
+
+ORIGINAL: ``money()''
+STRIPPED: ``money()''
+
+ORIGINAL: ``!''
+STRIPPED: ``!''
+showing all relationships
+book(horowitz)
+book(king)
+book(wilensky)
+book(wilensky)
+money()
+money()
+text(kernighan,ritchie)
+text(griswold,griswold)
+
+ORIGINAL: ``! book''
+STRIPPED: ``!book''
+book(horowitz)
+book(king)
+book(wilensky)
+book(wilensky)
+
+++++ done running SP

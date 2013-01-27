@@ -1,0 +1,121 @@
+# *** This file is given as part of the programming assignment. ***  
+
+# notes:
+#	no way to undefine a relationship
+#	once defined, relationship's arity cannot be changed
+#	conflicting or duplicate facts are allowed (as in prolog)
+
+# the database of facts.
+global db
+
+# stuff for evaluation
+global vt	# variable table
+
+# example: ?a(george,X,Y,X),b(X,Y),c(X,hi,Z)
+# vt contains:
+#	name	index where defined in ans
+#	X	2
+#	Y	3
+#	Z	9
+# el is a list of 3 lists, one for each query:
+# 	[a,[george,:X,:Y,=X]]
+#	[b,[=X,=Y]]
+#	[c,[=X,hi,:Z]]
+# note that first occurrence of a variable, X, is replaced by :X,
+# which means any value and assign to X.
+# subsequent occurrences of a variable, X, are replaced by =X,
+# which means must equal X's value.
+
+procedure main()
+	db := table()
+	input()
+end
+procedure input()
+	local x, i, w, line, parsed
+	while line := read() do {
+		write("ORIGINAL: ``", line, "''")
+		line := strip(line,' \t')
+		if *line > 0 & line[1] ~== '#' then {
+			write("STRIPPED: ``", line, "''")
+			if not parse(line) then
+				write("HUH? ")
+		}
+		write()
+	}
+end
+
+procedure strip(s,c)
+end
+
+# parses input line.  returns success or failure.
+procedure parse(line)
+	# ignore if blank
+		if *line = 0 then
+			return
+
+	return case line[1] of {
+		"#":
+			"#"			# ignoring comments is easy...
+# should never get here anymore since changed driver ...
+		"?":
+			query(line[2:0])
+		"!":
+			show(line[2:0])
+		default:
+			fact(line)
+	}
+end
+
+# parses and stores a fact.
+# form: predicate(arg1,arg2,...,argN)
+procedure fact(line)
+	local predicate, args
+	return if line ? (((predicate:=name(&lcase)),
+	        ="(",
+	        (args:=arguments(&lcase)),
+	        =")"),
+	       pos(0)) then enter(predicate,args)
+end
+
+# parses a name formed out of characters c.
+procedure name(c)
+end
+
+# parses arguments, each formed out of characters c.
+# form: a1,a2,...,aN (where N>=0)
+# since can have no arguments (silly) always succeeds.
+procedure arguments(c)
+end
+
+# enters info into given relation.
+# checks arity.
+procedure enter(predicate,args)
+end
+
+
+# shows 1 or all relationships.
+# form: ! [relationship]
+procedure show(line)
+	local predicate
+	if *line = 0 then
+		showall()
+	# needs work
+	return
+end
+
+procedure showall()
+	write("showing all relationships")
+	every show1((!sort(db))[1])
+end
+
+procedure show1(predicate)
+end
+
+# parses and evaluates queries.
+# form: ? goal {,goal}
+#	where goal is predicate(corvs)
+#	where each corv is a constant or a variable
+# builds up information for evaluation.
+procedure query(line)
+end
+

@@ -1,0 +1,167 @@
+++++ running SP
+ORIGINAL: ``simple(a)''
+STRIPPED: ``simple(a)''
+
+ORIGINAL: ``simple(b)''
+STRIPPED: ``simple(b)''
+
+ORIGINAL: ``!''
+STRIPPED: ``!''
+showing all relationships
+simple(a)
+simple(b)
+
+ORIGINAL: ``simple  ( c)''
+STRIPPED: ``simple(c)''
+
+ORIGINAL: ``?simple(X),simple(X)''
+STRIPPED: ``?simple(X),simple(X)''
+QueryList=[
+  [simple,[:X]]
+  [simple,[=X]]
+]
+X = a 
+X = b 
+X = c 
+no
+
+ORIGINAL: ``?simple(X),simple(Y)''
+STRIPPED: ``?simple(X),simple(Y)''
+QueryList=[
+  [simple,[:X]]
+  [simple,[:Y]]
+]
+X = a Y = a 
+X = a Y = b 
+X = a Y = c 
+X = b Y = a 
+X = b Y = b 
+X = b Y = c 
+X = c Y = a 
+X = c Y = b 
+X = c Y = c 
+no
+
+ORIGINAL: ``?simple(X),simple(Y),simple(Z)''
+STRIPPED: ``?simple(X),simple(Y),simple(Z)''
+QueryList=[
+  [simple,[:X]]
+  [simple,[:Y]]
+  [simple,[:Z]]
+]
+X = a Y = a Z = a 
+X = a Y = a Z = b 
+X = a Y = a Z = c 
+X = a Y = b Z = a 
+X = a Y = b Z = b 
+X = a Y = b Z = c 
+X = a Y = c Z = a 
+X = a Y = c Z = b 
+X = a Y = c Z = c 
+X = b Y = a Z = a 
+X = b Y = a Z = b 
+X = b Y = a Z = c 
+X = b Y = b Z = a 
+X = b Y = b Z = b 
+X = b Y = b Z = c 
+X = b Y = c Z = a 
+X = b Y = c Z = b 
+X = b Y = c Z = c 
+X = c Y = a Z = a 
+X = c Y = a Z = b 
+X = c Y = a Z = c 
+X = c Y = b Z = a 
+X = c Y = b Z = b 
+X = c Y = b Z = c 
+X = c Y = c Z = a 
+X = c Y = c Z = b 
+X = c Y = c Z = c 
+no
+
+ORIGINAL: ``# should give nothing''
+
+ORIGINAL: ``?simple(x),simple(X)''
+STRIPPED: ``?simple(x),simple(X)''
+QueryList=[
+  [simple,[x]]
+  [simple,[:X]]
+]
+no
+
+ORIGINAL: ``# should give something''
+
+ORIGINAL: ``?simple(b),simple(X)''
+STRIPPED: ``?simple(b),simple(X)''
+QueryList=[
+  [simple,[b]]
+  [simple,[:X]]
+]
+X = a 
+X = b 
+X = c 
+no
+
+ORIGINAL: ``pair(a,b)''
+STRIPPED: ``pair(a,b)''
+
+ORIGINAL: ``pair(b,a)''
+STRIPPED: ``pair(b,a)''
+
+ORIGINAL: ``pair(a,c)''
+STRIPPED: ``pair(a,c)''
+
+ORIGINAL: ``pair(c,d)''
+STRIPPED: ``pair(c,d)''
+
+ORIGINAL: ``!pair''
+STRIPPED: ``!pair''
+pair(a,b)
+pair(b,a)
+pair(a,c)
+pair(c,d)
+
+ORIGINAL: ``?simple(X),pair(Y,Z)''
+STRIPPED: ``?simple(X),pair(Y,Z)''
+QueryList=[
+  [simple,[:X]]
+  [pair,[:Y,:Z]]
+]
+X = a Y = a Z = b 
+X = a Y = b Z = a 
+X = a Y = a Z = c 
+X = a Y = c Z = d 
+X = b Y = a Z = b 
+X = b Y = b Z = a 
+X = b Y = a Z = c 
+X = b Y = c Z = d 
+X = c Y = a Z = b 
+X = c Y = b Z = a 
+X = c Y = a Z = c 
+X = c Y = c Z = d 
+no
+
+ORIGINAL: ``?simple(X),pair(X,Y)''
+STRIPPED: ``?simple(X),pair(X,Y)''
+QueryList=[
+  [simple,[:X]]
+  [pair,[=X,:Y]]
+]
+X = a Y = b 
+X = a Y = c 
+X = b Y = a 
+X = c Y = d 
+no
+
+ORIGINAL: ``?simple(X),pair(X,Y),simple(Y)''
+STRIPPED: ``?simple(X),pair(X,Y),simple(Y)''
+QueryList=[
+  [simple,[:X]]
+  [pair,[=X,:Y]]
+  [simple,[=Y]]
+]
+X = a Y = b 
+X = a Y = c 
+X = b Y = a 
+no
+
+++++ done running SP

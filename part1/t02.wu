@@ -1,0 +1,7 @@
+Another test for stripping blanks and tabs
+A n o t h e r  t e s t  f o r   s t r    i p  ing
+	Another test for       testing if   
+all      the 		blanks  		
+	and tabs have been      removed from    
+these lines    
+these lines.       

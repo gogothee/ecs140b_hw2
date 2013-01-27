@@ -1,0 +1,58 @@
+++++ running WU
+ORIGINAL: ``this is a test''
+STRIPPED: ``thisisatest''
+
+ORIGINAL: ``I am also a test''
+STRIPPED: ``Iamalsoatest''
+
+ORIGINAL: ``are you a test too''
+STRIPPED: ``areyouatesttoo''
+
+ORIGINAL: ``th is i s a t es t''
+STRIPPED: ``thisisatest''
+
+ORIGINAL: ``a test this is''
+STRIPPED: ``atestthisis''
+
+ORIGINAL: ``too you a t e	s	t	are''
+STRIPPED: ``tooyouatestare''
+
+ORIGINAL: ``a te st I a m a	l	s	o''
+STRIPPED: ``atestIamalso''
+
+character counts
+	 6
+  31
+I 2
+a 13
+e 9
+h 3
+i 6
+l 2
+m 2
+o 8
+r 2
+s 15
+t 19
+u 2
+y 2
+line counts
+I am also a test 1
+a te st I a m a	l	s	o 1
+a test this is 1
+are you a test too 1
+th is i s a t es t 1
+this is a test 1
+too you a t e	s	t	are 1
+stripped line counts
+Iamalsoatest 1
+areyouatesttoo 1
+atestIamalso 1
+atestthisis 1
+thisisatest 2
+tooyouatestare 1
+compressed line counts
+Iaelmost 2
+aehist 3
+aeorstuy 2
+++++ done running WU

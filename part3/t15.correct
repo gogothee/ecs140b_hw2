@@ -1,0 +1,83 @@
+++++ running SP
+ORIGINAL: ``math(joe,a,b)''
+STRIPPED: ``math(joe,a,b)''
+
+ORIGINAL: ``math(sue,c,a)''
+STRIPPED: ``math(sue,c,a)''
+
+ORIGINAL: ``math(phil,c,d)''
+STRIPPED: ``math(phil,c,d)''
+
+ORIGINAL: ``math(peggy,a,a)''
+STRIPPED: ``math(peggy,a,a)''
+
+ORIGINAL: ``math(tom,c,d)''
+STRIPPED: ``math(tom,c,d)''
+
+ORIGINAL: ``english(joe,c)''
+STRIPPED: ``english(joe,c)''
+
+ORIGINAL: ``english(phil,a)''
+STRIPPED: ``english(phil,a)''
+
+ORIGINAL: ``english(sue,a)''
+STRIPPED: ``english(sue,a)''
+
+ORIGINAL: ``english(gail,b)''
+STRIPPED: ``english(gail,b)''
+
+ORIGINAL: ``english(tom,d)''
+STRIPPED: ``english(tom,d)''
+
+ORIGINAL: ``?math(X,c,Z),english(X,Z)''
+STRIPPED: ``?math(X,c,Z),english(X,Z)''
+QueryList=[
+  [math,[:X,c,:Z]]
+  [english,[=X,=Z]]
+]
+
+ORIGINAL: ``# no german''
+
+ORIGINAL: ``?german(X,c,Z)''
+STRIPPED: ``?german(X,c,Z)''
+relationship german not in db
+HUH? 
+
+ORIGINAL: ``# wrong arity for math''
+
+ORIGINAL: ``?math(c,Z),english(X,Z)''
+STRIPPED: ``?math(c,Z),english(X,Z)''
+relationship math needs arity 3 not 2
+HUH? 
+
+ORIGINAL: ``# wrong arity for english''
+
+ORIGINAL: ``?math(X,c,Z),english(X,Y,Z)''
+STRIPPED: ``?math(X,c,Z),english(X,Y,Z)''
+relationship english needs arity 2 not 3
+HUH? 
+
+ORIGINAL: ``# no german''
+
+ORIGINAL: ``?math(X,c,Z),german(X,Y,Z)''
+STRIPPED: ``?math(X,c,Z),german(X,Y,Z)''
+relationship german not in db
+HUH? 
+
+ORIGINAL: ``# wrong arity for math (no complaint for math)''
+
+ORIGINAL: ``?math(c,Z),german(X,Y,Z)''
+STRIPPED: ``?math(c,Z),german(X,Y,Z)''
+relationship math needs arity 3 not 2
+HUH? 
+
+ORIGINAL: ``# OK''
+
+ORIGINAL: ``?math(X,c,Z),english(X,Z)''
+STRIPPED: ``?math(X,c,Z),english(X,Z)''
+QueryList=[
+  [math,[:X,c,:Z]]
+  [english,[=X,=Z]]
+]
+
+++++ done running SP

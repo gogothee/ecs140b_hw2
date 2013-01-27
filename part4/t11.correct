@@ -1,0 +1,22 @@
+++++ running SP
+ORIGINAL: ``w(a,b)''
+STRIPPED: ``w(a,b)''
+
+ORIGINAL: ``w(c,d)''
+STRIPPED: ``w(c,d)''
+
+ORIGINAL: ``p(u)''
+STRIPPED: ``p(u)''
+
+ORIGINAL: ``p(i)''
+STRIPPED: ``p(i)''
+
+ORIGINAL: ``!''
+STRIPPED: ``!''
+showing all relationships
+p(u)
+p(i)
+w(a,b)
+w(c,d)
+
+++++ done running SP

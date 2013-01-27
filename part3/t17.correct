@@ -1,0 +1,98 @@
+++++ running SP
+ORIGINAL: ``simple(a)''
+STRIPPED: ``simple(a)''
+
+ORIGINAL: ``simple(b)''
+STRIPPED: ``simple(b)''
+
+ORIGINAL: ``!''
+STRIPPED: ``!''
+showing all relationships
+simple(a)
+simple(b)
+
+ORIGINAL: ``simple  ( c)''
+STRIPPED: ``simple(c)''
+
+ORIGINAL: ``?simple(X),simple(X)''
+STRIPPED: ``?simple(X),simple(X)''
+QueryList=[
+  [simple,[:X]]
+  [simple,[=X]]
+]
+
+ORIGINAL: ``?simple(X),simple(Y)''
+STRIPPED: ``?simple(X),simple(Y)''
+QueryList=[
+  [simple,[:X]]
+  [simple,[:Y]]
+]
+
+ORIGINAL: ``?simple(X),simple(Y),simple(Z)''
+STRIPPED: ``?simple(X),simple(Y),simple(Z)''
+QueryList=[
+  [simple,[:X]]
+  [simple,[:Y]]
+  [simple,[:Z]]
+]
+
+ORIGINAL: ``# should give nothing''
+
+ORIGINAL: ``?simple(x),simple(X)''
+STRIPPED: ``?simple(x),simple(X)''
+QueryList=[
+  [simple,[x]]
+  [simple,[:X]]
+]
+
+ORIGINAL: ``# should give something''
+
+ORIGINAL: ``?simple(b),simple(X)''
+STRIPPED: ``?simple(b),simple(X)''
+QueryList=[
+  [simple,[b]]
+  [simple,[:X]]
+]
+
+ORIGINAL: ``pair(a,b)''
+STRIPPED: ``pair(a,b)''
+
+ORIGINAL: ``pair(b,a)''
+STRIPPED: ``pair(b,a)''
+
+ORIGINAL: ``pair(a,c)''
+STRIPPED: ``pair(a,c)''
+
+ORIGINAL: ``pair(c,d)''
+STRIPPED: ``pair(c,d)''
+
+ORIGINAL: ``!pair''
+STRIPPED: ``!pair''
+pair(a,b)
+pair(b,a)
+pair(a,c)
+pair(c,d)
+
+ORIGINAL: ``?simple(X),pair(Y,Z)''
+STRIPPED: ``?simple(X),pair(Y,Z)''
+QueryList=[
+  [simple,[:X]]
+  [pair,[:Y,:Z]]
+]
+
+ORIGINAL: ``?simple(X),pair(X,Y)''
+STRIPPED: ``?simple(X),pair(X,Y)''
+QueryList=[
+  [simple,[:X]]
+  [pair,[=X,:Y]]
+]
+
+ORIGINAL: ``?simple(X),pair(X,Y),simple(Y)''
+STRIPPED: ``?simple(X),pair(X,Y),simple(Y)''
+QueryList=[
+  [simple,[:X]]
+  [pair,[=X,:Y]]
+  [simple,[=Y]]
+]
+
+++++ done running SP

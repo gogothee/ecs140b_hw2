@@ -1,0 +1,9 @@
+procedure main(args)
+	lines :=[]
+	while line := read() do{
+		push(lines, line)
+	}	
+	while line := pop(lines) doP
+		write(line)
+	}
+end

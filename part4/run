@@ -1,0 +1,14 @@
+#!/bin/csh -f
+# a simple way to run SProlog
+# usage: ``run X''
+#        where X is prefix of file containing SProlog program
+# e.g.,  ``run t5'' will run on t5.sp
+
+if( $#argv != 1 ) then
+	echo usage: $0 prefix
+	exit(1)
+endif
+
+echo ++++ running SP
+./sp < $1.sp
+echo ++++ done running SP

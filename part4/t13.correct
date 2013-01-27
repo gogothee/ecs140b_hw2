@@ -1,0 +1,7 @@
+++++ running SP
+ORIGINAL: ``?foo()''
+STRIPPED: ``?foo()''
+relationship foo not in db
+HUH? 
+
+++++ done running SP
