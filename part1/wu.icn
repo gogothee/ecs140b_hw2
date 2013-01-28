@@ -1,9 +1,36 @@
 procedure main(args)
-	lines :=[]
+	lines := []
+	letters := &lcase ++ &ucase
+	characters := letters ++ ' '
+	char_count := table(0)
 	while line := read() do{
-		push(lines, line)
-	}	
-	while line := pop(lines) doP
-		write(line)
+		write("ORIGINAL: ``",line,"''")
+		writes("STRIPPED: ``")
+		every writes(getword(line))
+		write("''\n")
+		line ? while c := move(1) do
+			char_count[c] +:= 1
 	}
+	write("character counts")
+	charlist := sort(char_count,3)
+	while write(pop(charlist), " ", pop(charlist))
+	write("line counts")
+	every i := 1 to *lines do{
+
+	}
+end
+procedure getword(line)
+    static wchar;  initial wchar := &lcase ++ &ucase ++ '\'-'
+    line ? while tab(upto(wchar)) do {
+	w := tab(many(wchar)) # grab the word
+	suspend w
+    }
+end
+procedure countletter(line,letter)
+	sum := 0
+	line ? while tab(upto(letter)) do{
+		tab(many(letter))
+		sum +:= 1
+	}
+	return sum
 end
