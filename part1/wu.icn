@@ -3,24 +3,44 @@ procedure main(args)
 	letters := &lcase ++ &ucase
 	characters := letters ++ ' '
 	char_count := table(0)
+	line_count := table(0)
+	stripped_line_count := table(0)
+	char_line_count := table(0)
+	comp_count := table(0)
 	while line := read() do{
+		line_char_count := table(0)
 		write("ORIGINAL: ``",line,"''")
 		writes("STRIPPED: ``")
-		every writes(getword(line))
+		stripped := ""
+		every stripped ||:= writes(getword(line))
 		write("''\n")
-		line ? while c := move(1) do
+		line ? while c := move(1) do{
 			char_count[c] +:= 1
+			line_char_count[c] +:= 1
+		}
+		line_count[line] +:= 1
+		stripped_line_count[stripped] +:= 1
+		compressed := list() 
+		every c := key(line_char_count) do{
+			push(compressed,c)
+		}
+		compressed_str := ""
+		every c := !sort(compressed,3) do
+			if c ~== " " & c ~== "\t" then
+				compressed_str ||:= c
+		comp_count[compressed_str] +:= 1
 	}
 	write("character counts")
-	charlist := sort(char_count,3)
-	while write(pop(charlist), " ", pop(charlist))
+	print_table(char_count)
 	write("line counts")
-	every i := 1 to *lines do{
-
-	}
+	print_table(line_count)	
+	write("stripped line counts")
+	print_table(stripped_line_count)
+	write("compressed line counts")
+	print_table(comp_count)
 end
 procedure getword(line)
-    static wchar;  initial wchar := &lcase ++ &ucase ++ '\'-'
+    static wchar;  initial wchar := &lcase ++ &ucase ++ '\'-.?()*/'
     line ? while tab(upto(wchar)) do {
 	w := tab(many(wchar)) # grab the word
 	suspend w
@@ -33,4 +53,8 @@ procedure countletter(line,letter)
 		sum +:= 1
 	}
 	return sum
+end
+procedure print_table(t)
+	out_list := sort(t,3)
+	while write(pop(out_list)," ",pop(out_list))
 end
