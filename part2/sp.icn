@@ -45,6 +45,12 @@ procedure input()
 end
 
 procedure strip(s,c)
+	local out
+	out := ""
+	s ? while tab(upto(&cset -- c)) do{
+		out ||:= tab(many(&cset -- c))
+	}
+	return out
 end
 
 # parses input line.  returns success or failure.
@@ -79,27 +85,44 @@ end
 
 # parses a name formed out of characters c.
 procedure name(c)
+	return tab(many(c))
 end
 
 # parses arguments, each formed out of characters c.
 # form: a1,a2,...,aN (where N>=0)
 # since can have no arguments (silly) always succeeds.
 procedure arguments(c)
+	local out
+	out := list()
+	while tab(upto(c)) do
+		put(out,tab(many(c)))		
+	return out
 end
 
 # enters info into given relation.
 # checks arity.
 procedure enter(predicate,args)
+	if \db[predicate] then{ #check if predicate is defined 
+		if(*db[predicate][1] ~=== *args) then{
+			write("relationship ",predicate," needs arity ",*db[predicate][1]," not ",*args)
+		return &fail
+		}
+	}else{
+		db[predicate] := list()
+	}
+	put(db[predicate],args)
+	return
 end
 
 
 # shows 1 or all relationships.
 # form: ! [relationship]
 procedure show(line)
-	local predicate
+	local predicate, i
 	if *line = 0 then
 		showall()
-	# needs work
+	else
+		show1(line)
 	return
 end
 
@@ -109,6 +132,20 @@ procedure showall()
 end
 
 procedure show1(predicate)
+	local i, j, wlist
+	if /db[predicate] then{
+		write("bad relationship to show")
+		return
+	}
+	every i := 1 to *db[predicate] do{
+		writes(predicate,"(")
+		wlist := ""
+		every j := 1 to *db[predicate][i] do{
+			wlist ||:= db[predicate][i][j] || ","
+		}
+		writes(wlist[1:*wlist])
+		write(")")
+	}
 end
 
 # parses and evaluates queries.
