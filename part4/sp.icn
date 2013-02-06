@@ -1,0 +1,326 @@
+# *** This file is given as part of the programming assignment. ***  
+
+# notes:
+#	no way to undefine a relationship
+#	once defined, relationship's arity cannot be changed
+#	conflicting or duplicate facts are allowed (as in prolog)
+
+# the database of facts.
+global db
+
+# stuff for evaluation
+global vt	# variable table
+
+# example: ?a(george,X,Y,X),b(X,Y),c(X,hi,Z)
+# vt contains:
+#	name	index where defined in ans
+#	X	2
+#	Y	3
+#	Z	9
+# el is a list of 3 lists, one for each query:
+# 	[a,[george,:X,:Y,=X]]
+#	[b,[=X,=Y]]
+#	[c,[=X,hi,:Z]]
+# note that first occurrence of a variable, X, is replaced by :X,
+# which means any value and assign to X.
+# subsequent occurrences of a variable, X, are replaced by =X,
+# which means must equal X's value.
+
+procedure main()
+	db := table()
+	input()
+end
+procedure input()
+	local x, i, w, line, parsed
+	while line := read() do {
+		write("ORIGINAL: ``", line, "''")
+		line := strip(line,' \t')
+		if *line > 0 & line[1] ~== '#' then {
+			write("STRIPPED: ``", line, "''")
+			if not parse(line) then
+				write("HUH? ")
+		}
+		write()
+	}
+end
+
+procedure strip(s,c)
+	local out
+	out := ""
+	s ? while tab(upto(&cset -- c)) do{
+		out ||:= tab(many(&cset -- c))
+	}
+	return out
+end
+
+# parses input line.  returns success or failure.
+procedure parse(line)
+	# ignore if blank
+		if *line = 0 then
+			return
+
+	return case line[1] of {
+		"#":
+			"#"			# ignoring comments is easy...
+# should never get here anymore since changed driver ...
+		"?":
+			query(line[2:0])
+		"!":
+			show(line[2:0])
+		default:
+			fact(line)
+	}
+end
+
+# parses and stores a fact.
+# form: predicate(arg1,arg2,...,argN)
+procedure fact(line)
+	local predicate, args
+	return if line ? (((predicate:=name(&lcase)),
+	        ="(",
+	        (args:=arguments(&lcase)),
+	        =")"),
+	       pos(0)) then enter(predicate,args)
+end
+
+# parses a name formed out of characters c.
+procedure name(c)
+	return tab(many(c))
+end
+
+# parses arguments, each formed out of characters c.
+# form: a1,a2,...,aN (where N>=0)
+# since can have no arguments (silly) always succeeds.
+procedure arguments(c)
+	local out
+	out := list()
+	while tab(upto(c)) do
+		put(out,tab(many(c)))		
+	return out
+end
+
+# enters info into given relation.
+# checks arity.
+procedure enter(predicate,args)
+	if \db[predicate] then{ #check if predicate is defined 
+		if(*db[predicate][1] ~=== *args) then{
+			write("relationship ",predicate," needs arity ",*db[predicate][1]," not ",*args)
+		return &fail
+		}
+	}else{
+		db[predicate] := list()
+	}
+	put(db[predicate],args)
+	return
+end
+
+
+# shows 1 or all relationships.
+# form: ! [relationship]
+procedure show(line)
+	local predicate, i
+	if *line = 0 then
+		showall()
+	else
+		show1(line)
+	return
+end
+
+procedure showall()
+	write("showing all relationships")
+	every show1((!sort(db))[1])
+end
+
+procedure show1(predicate)
+	local i, j, wlist
+	if /db[predicate] then{
+		write("bad relationship to show")
+		return
+	}
+	every i := 1 to *db[predicate] do{
+		writes(predicate,"(")
+		wlist := ""
+		every j := 1 to *db[predicate][i] do{
+			wlist ||:= db[predicate][i][j] || ","
+		}
+		writes(wlist[1:*wlist])
+		write(")")
+	}
+end
+
+# parses and evaluates queries.
+# form: ? goal {,goal}
+#	where goal is predicate(corvs)
+#	where each corv is a constant or a variable
+# builds up information for evaluation.
+procedure query(line)
+	local QueryList, goal, current, predicate, query_entry, key, arg_count,i
+	QueryList := list() 
+	arg_count := 0
+	vt := table(0)
+	line ? {
+		while tab(upto(&cset -- ",")) do {	
+				current := &subject[&pos:*&subject+1]
+				if find(",",current) < find(")",current) then{
+					tab(upto(&cset -- ")" ))
+					goal := tab(many(&cset -- ")")+1)
+				}
+				else
+					goal := tab(many(&cset -- ","))
+				if goal ? (((predicate:=name(&lcase)),
+	        	="(",
+	        	(args:=arguments(&lcase ++ &ucase)),
+	        	=")"),
+	       		pos(0)) then{
+					if db[predicate] ~=== &null then{	
+						if *db[predicate][1] ~== *args then{
+							write("relationship ",predicate," needs arity ",*db[predicate][1]," not ",*args)
+							return &fail	
+						}
+						query_entry := [predicate] 
+						every i := 1 to *args do{
+							arg_count +:= 1
+							if any(&ucase, args[i]) then{
+								key := args[i]
+								if vt[args[i]] = 0 then{
+									args[i] := ":" || args[i]
+									vt[key] := arg_count 
+								}
+								else
+									args[i] := "=" || args[i]
+							}
+						}
+						put(query_entry,args)
+						put(QueryList, query_entry)
+					}
+					else{
+						write("relationship ",predicate," not in db")
+						return &fail 
+					}
+				} 
+			}
+		}  
+		return goal_query(QueryList) 
+end
+
+procedure goal_query(QueryList)
+	local i, j, k, l, str, out_list, predicate, success, lc, var, q_list,q_str, p_list,db_strs, temp
+	# run though Querylist
+	write("QueryList=[")
+	success := &fail
+	db_strs := [""]
+	q_str := ""
+	q_list := list()
+	p_list := list()
+	every i := 1 to *QueryList do{ # for each line in query
+		predicate := QueryList[i][1]
+		put(p_list,predicate)
+		writes("  [",predicate,",[")
+		out_list := ""
+		every j := 1 to *QueryList[i][2] do{
+			out_list ||:= QueryList[i][2][j] || ","
+			if find("=",QueryList[i][2][j]) then # if =X
+				put(q_list, vt[QueryList[i][2][j][2:3]])
+			else if find(":",QueryList[i][2][j]) then # if :X
+				put(q_list, QueryList[i][2][j][2:3])
+			else
+				put(q_list, QueryList[i][2][j] )
+		}
+		write(out_list[1:*out_list],"]]")
+	}
+	write("]")
+	# generate possible db match strings
+	every i := 1 to *p_list do{ # for each predicate
+		temp := list()
+		every j:= 1 to *db[p_list[i]] do{
+			every k := 1 to *db_strs do {
+				str := ""
+				every l := 1 to *db[p_list[i]][j] do {
+					str ||:=db[p_list[i]][j][l]
+				}
+				put(temp, db_strs[k] || str )
+			}
+		}
+		db_strs := temp
+	}	
+	# see if any str generated using db matches
+	#convert q_list to q_str
+	every i := 1 to *q_list do{
+		q_str ||:= q_list[i]
+	}
+	every i := 1 to *db_strs do{
+		if db_strs[i] == q_str then
+			success := 1 
+	}	# output
+	# find solutions for vars
+	solve_var(q_list,p_list,db_strs)	
+
+	if success === 1 then{
+		write("yes")
+		return 1
+	}
+	else
+		write("no")
+	return 0 
+end
+procedure solve_var(q_list, p_list, db_strs)
+	# create all possible variations of q_str and print correct ones
+	local i,j,k,l,index, prev, str_list,index_list, fact, temp
+	str_list := [[""]]
+	index_list := [0] 
+	prev := 0
+	count := 0
+	every i := 1 to *p_list do{ # build a p_index list
+		put(index_list,prev + *db[p_list[i]][1])
+		prev +:=  *db[p_list[i]][1]
+	}
+	every i := 1 to *q_list do{
+		temp := list()
+		if find(q_list[i], &ucase) then{
+			every j := 1 to *index_list do{ # find which index to use
+				if index_list[j-1] < i <= index_list[j] then{ # use this index
+					fact := db[p_list[j-1]]
+					every k := 1 to *fact do{
+						every l := 1 to *str_list do{
+							put(temp, str_list[l] ||| [fact[k][i-index_list[j-1]]])
+						}
+					}
+					break
+				}		
+			}	
+			count +:= 1
+		}
+		else if index := integer(q_list[i]) then { #if number
+			every j:= 1 to *str_list do{
+				put(temp, str_list[j]|||[str_list[j][index+1]])	
+			}
+			count +:= 1
+		}
+		else{ 
+			every j := 1 to *str_list do{
+				put(temp, str_list[j]|||[q_list[i]])
+			}
+		}
+		str_list := temp	
+	}
+	redun := table(0)
+	every i := 1 to *str_list do{
+		str := ""
+		every k := 1 to *str_list[i] do
+			str ||:= str_list[i][k]	
+		if redun[str] === 0 then
+			redun[str] +:= 1
+		else 
+			next	
+		every j := 1 to *db_strs do{
+			if str == db_strs[j] then { # if match
+				every k := 1 to *q_list do{
+					if find(q_list[k], &ucase) then
+						writes(q_list[k]," = ",str_list[i][k+1], " ")
+				}
+				if count ~=== 0 then
+					write("")
+			}
+		}
+	}
+end
